@@ -57,7 +57,7 @@ const WaterfallItem = require("vue2-waterfall").WaterfallItem;
 | gutterWidth     | 瀑布流子组件水平间距                             | 10          | Number    |           -              |
 | gutterHeight    | 瀑布流子组件垂直间距                             | 10          | Number    |           -              |
 | resizable       | 当浏览器窗口调整大小时是否重新布局                 | true        | Boolean   |  'true' 'false'          |
-| align           | 对齐方式。                                      | 'center'    | String    |  'left' 'center' 'right' |
+| align           | 对齐方式                                       | 'center'    | String    |  'left' 'center' 'right' |
 | fixWidth        | 是否固定组件宽度                                 |      -      | Number    |           -              |
 | minCol          | 最小显示列数                                     | 1           | Number    |           -              |
 | maxCol          | 最大显示列数                                     |      -      | Number    |           -              |
