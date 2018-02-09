@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import imagesLoaded from 'imagesLoaded'
 export default {
   name: 'WaterfallItem',
   props: {
@@ -29,7 +30,7 @@ export default {
     }, this.emit)
   },
   mounted () {
-    this.$nextTick(() => {
+    imagesLoaded(this.$el, () => {
       this.height = this.$el.offsetHeight
       this.width = this.$el.offsetWidth
     })
