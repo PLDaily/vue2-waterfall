@@ -30,6 +30,7 @@ export default {
     }, this.emit)
   },
   mounted () {
+    this.emit()
     imagesLoaded(this.$el, () => {
       this.height = this.$el.offsetHeight
       this.width = this.$el.offsetWidth
