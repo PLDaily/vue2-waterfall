@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import imagesLoaded from 'imagesLoaded'
+import imagesLoaded from 'imagesloaded'
 export default {
   name: 'WaterfallItem',
   props: {
