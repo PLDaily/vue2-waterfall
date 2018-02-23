@@ -3,13 +3,8 @@
   padding: 0;
   margin: 0;
 }
-.item {
-  box-sizing: border-box;
-  width: 150px;
-  overflow: hidden;
-  border-radius: 5px;
-}
 .item img {
+  border-radius: 5px;
   width: 100%;
   display: block;
 }
@@ -21,7 +16,7 @@
 <template>
   <div class="example">
     <Waterfall @rendered="rendered">
-      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :order="index" class="item item-move">
+      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="150" :order="index" class="item item-move">
         <img :src="src">
       </WaterfallItem>
     </Waterfall>

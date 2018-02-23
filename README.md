@@ -67,9 +67,10 @@ or link as a `script` in an html file and access global variable `Vue2Waterfall`
 
 ### WaterfallItem Attributes
 
-| Option  | Description                                                 | default     | type      | acceptable values        |
-| ------- | ----------------------------------------------------------- | ----------- | --------- | ------------------------ |
-| order   | The order of waterfallItem, often be set to index in v-for  |      -      | Number    |           -              |
+| Option  | Description                                                 | default     | type      |
+| ------- | ----------------------------------------------------------- | ----------- | --------- |
+| order   | The order of waterfallItem, often be set to index in v-for  |      -      | Number    |
+| width   | The width of waterfallItem                                  |     150     | Number    |
 
 ### Events
 

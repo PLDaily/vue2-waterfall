@@ -16,26 +16,29 @@ export default {
     order: {
       type: Number,
       default: 0
+    },
+    width: {
+      type: Number,
+      default: 150
     }
   },
   data () {
     return {
-      width: 0,
       height: 0
     }
   },
   created () {
     this.$watch(() => {
-      return this.width + this.height
+      return this.height
     }, this.emit)
   },
   mounted () {
-    this.emit()
     this.$el.style.display = 'none'
+    this.$el.style.width = this.width + 'px'
+    // this.emit()
     imagesLoaded(this.$el, () => {
       this.$el.style.display = 'block'
       this.height = this.$el.offsetHeight
-      this.width = this.$el.offsetWidth
     })
   },
   methods: {
