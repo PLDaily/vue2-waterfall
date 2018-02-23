@@ -5,9 +5,13 @@
 }
 .item {
   box-sizing: border-box;
-  width: 200px;
+  width: 150px;
   overflow: hidden;
   border-radius: 5px;
+}
+.item img {
+  width: 100%;
+  display: block;
 }
 .item-move {
   transition: all .5s cubic-bezier(.55,0,.1,1);
@@ -17,14 +21,23 @@
 <template>
   <div class="example">
     <Waterfall @rendered="rendered">
-      <WaterfallItem v-for="(data, index) in dataArr" :key="index" :order="index" class="item item-move" :style="{height: data.height + 'px', backgroundColor: data.bgColor}">
-        {{index}}
+      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :order="index" class="item item-move">
+        <img :src="src">
       </WaterfallItem>
     </Waterfall>
   </div>
 </template>
 <script>
+/* eslint no-unused-vars: 0 */
 import {Waterfall, WaterfallItem} from '../src'
+import pg0 from './images/pg0.jpg'
+import pg1 from './images/pg1.jpg'
+import pg2 from './images/pg2.jpg'
+import pg3 from './images/pg3.jpg'
+import pg4 from './images/pg4.jpg'
+import pg5 from './images/pg5.jpg'
+import pg6 from './images/pg6.jpg'
+import pg7 from './images/pg7.jpg'
 export default {
   name: 'Example',
   components: {
@@ -38,19 +51,13 @@ export default {
     }
   },
   mounted () {
-    this.getData()
+    const imgArr = [pg0, pg1, pg2, pg3, pg4, pg5, pg6, pg7]
+    for (let i = 0; i < 30; i++) {
+      let num = Math.floor(Math.random() * 8)
+      this.dataArr.push(imgArr[num])
+    }
   },
   methods: {
-    getData () {
-      const colorArr = ['rgba(255, 230, 135, 0.5)', 'rgba(21, 174, 103, 0.5)', 'rgba(125, 205, 244, 0.5)', 'rgba(195, 123, 177, 0.5)']
-      for (let i = 0; i < 50; i++) {
-        let data = {
-          height: parseInt(Math.random() * 100) + 100,
-          bgColor: colorArr[parseInt(Math.random() * 4)]
-        }
-        this.dataArr.push(data)
-      }
-    },
     rendered () {
       console.log('waterfall was rendered')
     }

@@ -75,7 +75,7 @@ or link as a `script` in an html file and access global variable `Vue2Waterfall`
 
 | Option         | Description                              |
 | -------------- | ---------------------------------------- |
-| rendered()     | the waterfall component is rendered      |
+| rendered       | the waterfall component is rendered      |
 
 
 ## LICENSE
