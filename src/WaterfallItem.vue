@@ -31,7 +31,9 @@ export default {
   },
   mounted () {
     this.emit()
+    this.$el.style.display = 'none'
     imagesLoaded(this.$el, () => {
+      this.$el.style.display = 'block'
       this.height = this.$el.offsetHeight
       this.width = this.$el.offsetWidth
     })
