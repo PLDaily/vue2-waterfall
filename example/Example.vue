@@ -36,8 +36,6 @@ import pg2 from './images/pg2.jpg'
 import pg3 from './images/pg3.jpg'
 import pg4 from './images/pg4.jpg'
 import pg5 from './images/pg5.jpg'
-import pg6 from './images/pg6.jpg'
-import pg7 from './images/pg7.jpg'
 export default {
   name: 'Example',
   components: {
@@ -51,9 +49,9 @@ export default {
     }
   },
   mounted () {
-    const imgArr = [pg0, pg1, pg2, pg3, pg4, pg5, pg6, pg7]
-    for (let i = 0; i < 30; i++) {
-      let num = Math.floor(Math.random() * 8)
+    const imgArr = [pg0, pg1, pg2, pg3, pg4, pg5]
+    for (let i = 0; i < 60; i++) {
+      let num = Math.floor(Math.random() * 6)
       this.dataArr.push(imgArr[num])
     }
   },
