@@ -15,11 +15,11 @@ export default {
   props: {
     gutterWidth: {
       type: Number,
-      default: 10
+      default: 0
     },
     gutterHeight: {
       type: Number,
-      default: 10
+      default: 0
     },
     resizable: {
       type: Boolean,

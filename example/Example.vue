@@ -15,7 +15,7 @@
 </style>
 <template>
   <div class="example">
-    <Waterfall @rendered="rendered">
+    <Waterfall @rendered="rendered" :gutterWidth="10" :gutterHeight="10">
       <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="150" :order="index" class="item item-move">
         <img :src="src">
       </WaterfallItem>

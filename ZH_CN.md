@@ -54,8 +54,8 @@ const WaterfallItem = require("vue2-waterfall").WaterfallItem;
 
 | 属性             | 描述                                           | 默认值       | 类型      | 可选项                   |
 | --------------- | ---------------------------------------------- | ----------- | --------- | ------------------------ |
-| gutterWidth     | 瀑布流子组件水平间距                             | 10          | Number    |           -              |
-| gutterHeight    | 瀑布流子组件垂直间距                             | 10          | Number    |           -              |
+| gutterWidth     | 瀑布流子组件水平间距                             | 0           | Number    |           -              |
+| gutterHeight    | 瀑布流子组件垂直间距                             | 0           | Number    |           -              |
 | resizable       | 当浏览器窗口调整大小时是否重新布局                 | true        | Boolean   |  'true' 'false'          |
 | align           | 对齐方式                                       | 'center'    | String    |  'left' 'center' 'right' |
 | fixWidth        | 是否固定组件宽度                                 |      -      | Number    |           -              |
