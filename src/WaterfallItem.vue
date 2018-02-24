@@ -24,6 +24,7 @@ export default {
   },
   data () {
     return {
+      itemWidth: 0,
       height: 0
     }
   },
@@ -35,10 +36,11 @@ export default {
   mounted () {
     this.$el.style.display = 'none'
     this.$el.style.width = this.width + 'px'
-    // this.emit()
+    this.emit()
     imagesLoaded(this.$el, () => {
       this.$el.style.display = 'block'
       this.height = this.$el.offsetHeight
+      this.itemWidth = this.$el.offsetWidth
     })
   },
   methods: {
@@ -49,7 +51,7 @@ export default {
       return {
         el: this.$el,
         height: this.height,
-        width: this.width,
+        width: this.itemWidth,
         order: this.order
       }
     }

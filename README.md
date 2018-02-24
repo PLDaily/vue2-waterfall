@@ -54,16 +54,16 @@ or link as a `script` in an html file and access global variable `Vue2Waterfall`
 
 ### Waterfall Attributes
 
-| Option          | Description                                    | default     | type      | acceptable values        |
-| --------------- | ---------------------------------------------- | ----------- | --------- | ------------------------ |
-| gutterWidth     | the waterfall brick element horizontal gutter  | 0           | Number    |           -              |
-| gutterHeight    | the waterfall brick element vertical gutter    | 0           | Number    |           -              |
-| resizable       | triggers layout when browser window is resized | true        | Boolean   |  'true' 'false'          |
-| align           | Alignment                                      | 'center'    | String    |  'left' 'center' 'right' |
-| fixWidth        | fix the waterfall component width              |      -      | Number    |           -              |
-| minCol          | min columns                                    | 1           | Number    |           -              |
-| maxCol          | max column                                     |      -      | Number    |           -              |
-| percent         | use Fluid layout, ignore waterfallitem width   |      -      | Array     |           -              |
+| Option          | Description                                                   | default     | type      | acceptable values        |
+| --------------- | ------------------------------------------------------------- | ----------- | --------- | ------------------------ |
+| gutterWidth     | the waterfall brick element horizontal gutter                 | 0           | Number    |           -              |
+| gutterHeight    | the waterfall brick element vertical gutter                   | 0           | Number    |           -              |
+| resizable       | triggers layout when browser window is resized                | true        | Boolean   |  'true' 'false'          |
+| align           | Alignment                                                     | 'center'    | String    |  'left' 'center' 'right' |
+| fixWidth        | fix the waterfall component width                             |      -      | Number    |           -              |
+| minCol          | min columns                                                   | 1           | Number    |           -              |
+| maxCol          | max column                                                    |      -      | Number    |           -              |
+| percent         | use Fluid layout, ignore waterfallitem width. such as [1, 1]  |      -      | Array     |           -              |
 
 ### WaterfallItem Attributes
 

@@ -130,6 +130,9 @@ export default {
             child.el.style.left = `${position * (child.width + this.gutterWidth) + this.lastWidth / 2}px`
           }
         }
+        if (child.height === 0) {
+          return
+        }
         child.el.style.top = `${offsetArr[position]}px`
         offsetArr[position] += (child.height + this.gutterHeight)
         this.$el.style.height = `${Math.max.apply(Math, offsetArr)}px`
