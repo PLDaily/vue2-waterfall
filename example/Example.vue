@@ -8,15 +8,11 @@
   width: 100%;
   display: block;
 }
-.item-move {
-  transition: all .5s cubic-bezier(.55,0,.1,1);
-  -webkit-transition: all .5s cubic-bezier(.55,0,.1,1);
-}
 </style>
 <template>
   <div class="example">
     <Waterfall @rendered="rendered" :gutterWidth="10" :gutterHeight="10">
-      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="150" :order="index" class="item item-move">
+      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="150" :order="index" class="item">
         <img :src="src">
       </WaterfallItem>
     </Waterfall>

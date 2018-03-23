@@ -38,6 +38,8 @@ export default {
     this.$el.style.width = this.width + 'px'
     this.emit()
     imagesLoaded(this.$el, () => {
+      this.$el.style.left = -9999 + 'px'
+      this.$el.style.top = -9999 + 'px'
       this.$el.style.display = 'block'
       this.height = this.$el.offsetHeight
       this.itemWidth = this.$el.offsetWidth
