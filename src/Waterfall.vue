@@ -104,7 +104,7 @@ export default {
       childArr = quickSort(childArr, 'order')
       // 计算列数
       this.calulate(childArr[0])
-      let offsetArr = Array(this.colNum).fill(0)
+      let offsetArr = Array.apply(null, Array(this.colNum)).map(() => 0)
       // 渲染
       childArr.forEach(child => {
         let position = getMinIndex(offsetArr)
