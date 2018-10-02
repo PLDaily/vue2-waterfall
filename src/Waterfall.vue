@@ -59,6 +59,7 @@ export default {
     })
     if (!this.percent) {
       this.$on('itemRender', val => {
+        this.width = this.$refs.waterfall.offsetWidth
         this.itemWidth = val
         this.emit()
         this.calMinWidth()
