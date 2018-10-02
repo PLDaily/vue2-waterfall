@@ -1,8 +1,8 @@
 {
   "name": "vue2-waterfall",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "An AutoHeight Waterfall Component For Vue2",
-  "main": "dist/vue2-waterfall.js",
+  "main": "src",
   "scripts": {
     "watch": "webpack --watch",
     "build": "webpack",
@@ -26,6 +26,7 @@
     "vue": "^2.5.13"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
@@ -42,7 +43,6 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
-    "imagesloaded": "^4.1.4",
     "vue-loader": "^13.5.0",
     "vue-template-compiler": "^2.5.9",
     "webpack": "^3.10.0",

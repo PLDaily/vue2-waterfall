@@ -62,7 +62,7 @@ const config = {
   },
   plugins: [
     new ExtractTextPlugin({
-      filename:  'example.css'
+      filename: 'example.css'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

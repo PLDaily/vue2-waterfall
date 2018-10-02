@@ -3,16 +3,49 @@
   padding: 0;
   margin: 0;
 }
+
 .item img {
   border-radius: 5px;
   width: 100%;
   display: block;
 }
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
 </style>
 <template>
   <div class="example">
-    <Waterfall @rendered="rendered" :gutterWidth="10" :gutterHeight="10">
-      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="150" :order="index" class="item">
+    <Waterfall :gutterWidth="10" :minCol="3" :maxCol="4" :gutterHeight="10" ref="waterfall">
+      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="250" class="item animated fadeIn">
         <img :src="src">
       </WaterfallItem>
     </Waterfall>
@@ -35,20 +68,14 @@ export default {
   },
   data () {
     return {
-      gap: 10,
       dataArr: []
     }
   },
   mounted () {
     const imgArr = [pg0, pg1, pg2, pg3, pg4, pg5]
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 50; i++) {
       let num = Math.floor(Math.random() * 6)
       this.dataArr.push(imgArr[num])
-    }
-  },
-  methods: {
-    rendered () {
-      console.log('waterfall was rendered')
     }
   }
 }

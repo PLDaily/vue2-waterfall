@@ -13,6 +13,11 @@
 
 [demo](http://67.218.146.247:8088/)
 
+## Release 2.0
+
+- support ssr
+- no dependencies
+
 ## Install
 
 ### Install vue2-waterfall
@@ -69,14 +74,7 @@ or link as a `script` in an html file and access global variable `Vue2Waterfall`
 
 | Option  | Description                                                 | default     | type      |
 | ------- | ----------------------------------------------------------- | ----------- | --------- |
-| order   | The order of waterfallItem, often be set to index in v-for  |      -      | Number    |
 | width   | The width of waterfallItem                                  |     150     | Number    |
-
-### Events
-
-| Option         | Description                              |
-| -------------- | ---------------------------------------- |
-| rendered       | the waterfall component is rendered      |
 
 
 ## LICENSE
