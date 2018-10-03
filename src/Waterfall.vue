@@ -1,15 +1,4 @@
-<style>
-.waterfall {
-  display: block;
-  margin:0 auto;
-}
-.waterfall-box {
-  vertical-align: top;
-  display: inline-block;
-}
-</style>
 <script>
-import { isNode } from './util'
 import Vue from 'vue'
 export default {
   name: 'Waterfall',
@@ -82,7 +71,7 @@ export default {
         class: 'waterfall',
         ref: 'waterfall',
         style: {
-          display: isNode ? 'none' : 'block'
+          display: typeof window === 'undefined' ? 'none' : 'block'
         }
       }, Array.apply(null, { length: colNum }).map((item, index) => {
         return h(
@@ -90,7 +79,9 @@ export default {
           {
             class: 'waterfall-box',
             style: {
-              width: `${this.percent[index] * this.width / sum}px`
+              width: `${this.percent[index] * this.width / sum}px`,
+              verticalAlign: 'top',
+              display: 'inline-block'
             }
           },
           this.$slots.default.filter((it, idx) => idx % colNum === index)
@@ -104,7 +95,7 @@ export default {
         class: 'waterfall',
         ref: 'waterfall',
         style: {
-          display: isNode ? 'none' : 'block',
+          display: typeof window === 'undefined' ? 'none' : 'block',
           textAlign: this.align,
           margin: '0 auto'
         }
@@ -115,7 +106,9 @@ export default {
             class: 'waterfall-box',
             style: {
               width: `${this.itemWidth}px`,
-              padding: `0 ${this.gutterWidth / 2}px`
+              padding: `0 ${this.gutterWidth / 2}px`,
+              verticalAlign: 'top',
+              display: 'inline-block'
             }
           },
           this.$slots.default.filter((it, idx) => idx % colNum === index)
