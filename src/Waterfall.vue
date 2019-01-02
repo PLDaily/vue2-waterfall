@@ -43,12 +43,12 @@ export default {
   },
   mounted () {
     Vue.nextTick(() => {
-      this.width = this.$refs.waterfall.offsetWidth
+      this.setWidth()
       this.resizeHandle()
     })
     if (!this.percent) {
       this.$on('itemRender', val => {
-        this.width = this.$refs.waterfall.offsetWidth
+        this.setWidth()
         this.itemWidth = val
         this.emit()
         this.calMinWidth()
@@ -117,6 +117,9 @@ export default {
     }
   },
   methods: {
+    setWidth () {
+      this.width = this.$refs.waterfall.getBoundingClientRect().width
+    },
     emit () {
       this.$children.map(children => {
         return children.$emit('getGutterHeight', this.gutterHeight)
@@ -130,15 +133,11 @@ export default {
       }
     },
     onResize () {
-      window.addEventListener('resize', () => {
-        this.width = this.$refs.waterfall.offsetWidth
-      }, false)
+      window.addEventListener('resize', this.setWidth, false)
     },
     offResize () {
       this.$refs.waterfall.style.width = `${this.width}px`
-      window.removeEventListener('resize', () => {
-        this.width = this.$refs.waterfall.offsetWidth
-      }, false)
+      window.removeEventListener('resize', this.setWidth, false)
     },
     calMinWidth () {
       if (this.minCol && this.minCol > 0) {
