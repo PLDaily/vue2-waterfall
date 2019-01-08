@@ -1,5 +1,4 @@
 <script>
-import Vue from 'vue'
 export default {
   name: 'Waterfall',
   props: {
@@ -31,65 +30,148 @@ export default {
     },
     percent: {
       type: Array
+    },
+    itemWidth: {
+      type: Number,
+      default: 200
     }
   },
   data () {
     return {
       width: 0,
-      itemWidth: 100,
       minWidth: 0,
-      maxWidth: 0
+      maxWidth: 0,
+      renderData: [],
+      scrollBottomEventEmited: false,
+      preDataLength: 0
     }
   },
+
   mounted () {
-    Vue.nextTick(() => {
-      this.setWidth()
-      this.resizeHandle()
-    })
-    if (!this.percent) {
-      this.$on('itemRender', val => {
-        this.setWidth()
-        this.itemWidth = val
-        this.emit()
-        this.calMinWidth()
-        this.calMaxWidth()
-      })
+    this.setWidth()
+    if (this.resizable) {
+      this.onResize()
     }
+
+    this.$on('itemRender', ({ height }) => {
+      const { minHeightIndex, renderLength } = this
+      const renderData = this.renderData[minHeightIndex]
+      const slots = this.$slots.default
+      renderData.height = renderData.height + height
+
+      if (renderLength < slots.length) {
+        this.renderData[this.minHeightIndex].nodes.push(slots[renderLength])
+      }
+    })
+
+    window.addEventListener('scroll', this.handleScroll, { passive: true })
   },
-  render: function (h) {
+
+  render (h) {
     if (!this.$slots.default) {
       return h('div', {
         class: 'waterfall',
         ref: 'waterfall'
-      }, this.$slots.default)
+      })
     }
 
-    if (this.percent && this.percent.length > 0) { // 百分比布局
-      const colNum = this.percent.length
-      const sum = this.percent.reduce((a, b) => a + b)
-      return h('div', {
-        class: 'waterfall',
-        ref: 'waterfall',
-        style: {
-          display: typeof window === 'undefined' ? 'none' : 'block'
-        }
-      }, Array.apply(null, { length: colNum }).map((item, index) => {
+    if (this.preDataLength !== this.$slots.default.length) {
+      this.calc()
+      this.scrollBottomEventEmited = false
+    }
+    this.preDataLength = this.$slots.default.length
+
+    return this.grid(h)
+  },
+
+  computed: {
+    renderLength () {
+      return this.renderData.reduce((pre, cur) => pre + cur.nodes.length, 0)
+    },
+    minHeightIndex () {
+      const minHeight = Math.min(...this.renderData.map(item => item.height))
+      return this.renderData.findIndex(item => item.height === minHeight)
+    },
+    colNum () {
+      if (this.percent) {
+        return this.percent.length
+      } else {
+        return parseInt(this.width / (this.itemWidth), 10) || 1
+      }
+    }
+  },
+
+  watch: {
+    colNum (newValue, oldValue) {
+      if (oldValue !== 0) {
+        this.reflow()
+      }
+    }
+  },
+
+  methods: {
+    calc () {
+      if (this.renderData.length === 0) {
+        const data = Array.apply(null, { length: this.colNum }).map((item, index) => ({
+          height: 0,
+          nodes: []
+        }))
+        data[0].nodes.push(this.$slots.default[0])
+        this.renderData.push(...data)
+      } else {
+        this.renderData[this.minHeightIndex].nodes.push(this.$slots.default[this.renderLength])
+      }
+    },
+
+    reflow () {
+      const data = Array.apply(null, { length: this.colNum }).map((item, index) => ({
+        height: 0,
+        nodes: []
+      }))
+
+      this.$children.forEach(item => {
+        const minHeight = Math.min(...data.map(item => item.height))
+        const minHeightIndex = data.findIndex(item => item.height === minHeight)
+        data[minHeightIndex].height += item.height
+        data[minHeightIndex].nodes.push(item.$vnode)
+      })
+
+      this.renderData = data
+    },
+
+    handleScroll () {
+      const distance = this.$el.getBoundingClientRect().bottom - window.innerHeight
+      if (distance <= 100 && !this.scrollBottomEventEmited) {
+        this.$emit('scrollBottom')
+        this.scrollBottomEventEmited = true
+      }
+    },
+
+    grid (h) {
+      const nodes = this.renderData.map((item, index) => {
+        const listItemNodes = item.nodes.map(node => {
+          node.componentOptions.propsData.gutterHeight = this.gutterHeight
+          return node
+        })
+        const itemWidth = this.percent
+          ? this.percent[index] * this.width / this.percent.reduce((a, b) => a + b)
+          : this.itemWidth
+
         return h(
           'div',
           {
             class: 'waterfall-box',
             style: {
-              width: `${this.percent[index] * this.width / sum}px`,
+              width: `${itemWidth}px`,
+              padding: `0 ${this.gutterWidth / 2}px`,
               verticalAlign: 'top',
-              display: 'inline-block'
+              display: 'inline-block',
+              boxSizing: 'border-box'
             }
           },
-          this.$slots.default.filter((it, idx) => idx % colNum === index)
+          [listItemNodes]
         )
-      }))
-    } else { // 正常布局
-      const pageWidth = this.fixWidth || this.width
-      const colNum = parseInt(pageWidth / (this.itemWidth + this.gutterWidth)) || 1
+      })
 
       return h('div', {
         class: 'waterfall',
@@ -99,52 +181,24 @@ export default {
           textAlign: this.align,
           margin: '0 auto'
         }
-      }, Array.apply(null, { length: colNum }).map((item, index) => {
-        return h(
-          'div',
-          {
-            class: 'waterfall-box',
-            style: {
-              width: `${this.itemWidth}px`,
-              padding: `0 ${this.gutterWidth / 2}px`,
-              verticalAlign: 'top',
-              display: 'inline-block'
-            }
-          },
-          this.$slots.default.filter((it, idx) => idx % colNum === index)
-        )
-      }))
-    }
-  },
-  methods: {
+      }, nodes)
+    },
+
     setWidth () {
       this.width = this.$refs.waterfall.getBoundingClientRect().width
     },
-    emit () {
-      this.$children.map(children => {
-        return children.$emit('getGutterHeight', this.gutterHeight)
-      })
-    },
-    resizeHandle () {
-      if (this.resizable) {
-        this.onResize()
-      } else {
-        this.offResize()
-      }
-    },
+
     onResize () {
       window.addEventListener('resize', this.setWidth, false)
     },
-    offResize () {
-      this.$refs.waterfall.style.width = `${this.width}px`
-      window.removeEventListener('resize', this.setWidth, false)
-    },
+
     calMinWidth () {
       if (this.minCol && this.minCol > 0) {
         this.minWidth = (this.itemWidth + this.gutterWidth) * this.minCol
         this.$refs.waterfall.style.minWidth = `${this.minWidth}px`
       }
     },
+
     calMaxWidth () {
       if (this.maxCol && this.maxCol > 0) {
         this.maxWidth = (this.itemWidth + this.gutterWidth) * this.maxCol

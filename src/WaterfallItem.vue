@@ -6,26 +6,26 @@
 <script>
 export default {
   name: 'WaterfallItem',
+
   props: {
-    width: {
-      type: Number,
-      default: 150
+    gutterHeight: {
+      type: Number
     }
   },
-  data () {
-    return {
-      gutterHeight: 0
-    }
-  },
+
   mounted () {
-    this.$on('getGutterHeight', val => {
-      this.gutterHeight = val
-    })
     this.emit()
   },
+
+  data: () => ({
+    height: 0
+  }),
+
   methods: {
     emit () {
-      this.$parent.$emit('itemRender', this.width)
+      const { height } = this.$el.getBoundingClientRect()
+      this.height = height
+      this.$parent.$emit('itemRender', { height })
     }
   }
 }

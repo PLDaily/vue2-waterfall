@@ -1,6 +1,6 @@
 {
-  "name": "vue2-waterfall",
-  "version": "2.0.1",
+  "name": "@rguanghui/vue2-waterfall",
+  "version": "3.0.0-alpha.1",
   "description": "An AutoHeight Waterfall Component For Vue2",
   "main": "dist/vue2-waterfall.js",
   "scripts": {
