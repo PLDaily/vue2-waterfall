@@ -185,7 +185,7 @@ export default {
     },
 
     setWidth () {
-      this.width = this.$refs.waterfall.getBoundingClientRect().width
+      this.width = this.$el.getBoundingClientRect().width
     },
 
     onResize () {
@@ -195,14 +195,14 @@ export default {
     calMinWidth () {
       if (this.minCol && this.minCol > 0) {
         this.minWidth = (this.itemWidth + this.gutterWidth) * this.minCol
-        this.$refs.waterfall.style.minWidth = `${this.minWidth}px`
+        this.$el.style.minWidth = `${this.minWidth}px`
       }
     },
 
     calMaxWidth () {
       if (this.maxCol && this.maxCol > 0) {
         this.maxWidth = (this.itemWidth + this.gutterWidth) * this.maxCol
-        this.$refs.waterfall.style.maxWidth = `${this.maxWidth}px`
+        this.$el.style.maxWidth = `${this.maxWidth}px`
       }
     }
   }
