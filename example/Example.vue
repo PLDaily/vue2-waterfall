@@ -8,59 +8,6 @@ body {
   margin: 0;
 }
 
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
-
-.image__content {
-  position: relative;
-  background-color: #fff;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,.1);
-}
-
-.image__text {
-  text-align: left;
-  font-size: 14px;
-  padding: 8px;
-  color: #666;
-  line-height: 1.5;
-}
-
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
 .example {
   margin: 50px 100px;
 }
@@ -74,11 +21,11 @@ body {
       :maxCol="4"
       :percent="waterfallPercent"
       @scrollBottom="handleLoadMore">
-      <WaterfallItem v-for="(item, index) in dataArr" :key="index" class="item animated fadeIn">
-        <div class="image__content" :style="{ paddingTop: item.height / item.width * 100 + '%' }">
-          <img :src="item.url" class="image">
-          <div class="image__text">【{{index}}】{{item.text}}</div>
-        </div>
+      <WaterfallItem
+        v-for="(item, index) in dataArr"
+        :key="index"
+        emitEvent="imageEmit">
+        <ImageComponent :item="item" />
       </WaterfallItem>
     </Waterfall>
   </div>
@@ -86,6 +33,7 @@ body {
 
 <script>
 import { Waterfall, WaterfallItem } from '../src'
+import ImageComponent from './component.vue'
 import pg0 from './images/pg0.jpg'
 import pg1 from './images/pg1.jpg'
 import pg2 from './images/pg2.jpg'
@@ -96,7 +44,8 @@ export default {
   name: 'Example',
   components: {
     Waterfall,
-    WaterfallItem
+    WaterfallItem,
+    ImageComponent
   },
   data () {
     return {
@@ -105,7 +54,7 @@ export default {
     }
   },
   mounted () {
-    this.loadMore(10)
+    setTimeout(() => this.loadMore(5), 100)
     this.getPrecent()
     window.addEventListener('resize', this.getPrecent, { passive: true })
   },
@@ -126,7 +75,7 @@ export default {
     handleLoadMore () {
       setTimeout(() => {
         this.loadMore(10)
-      }, 3000)
+      }, 500)
     },
 
     loadMore (length = 10) {

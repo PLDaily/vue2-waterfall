@@ -10,11 +10,18 @@ export default {
   props: {
     gutterHeight: {
       type: Number
+    },
+    emitEvent: {
+      type: String
     }
   },
 
   mounted () {
-    this.emit()
+    if (this.emitEvent) {
+      this.$on(this.emitEvent, this.emit)
+    } else {
+      this.emit()
+    }
   },
 
   data: () => ({
