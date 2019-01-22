@@ -150,6 +150,7 @@ export default {
     grid (h) {
       const nodes = this.renderData.map((item, index) => {
         const listItemNodes = item.nodes.map(node => {
+          if (!node) return
           node.componentOptions.propsData.gutterHeight = this.gutterHeight
           return node
         })
