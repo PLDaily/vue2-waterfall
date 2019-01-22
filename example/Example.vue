@@ -44,7 +44,7 @@
 </style>
 <template>
   <div class="example">
-    <Waterfall :gutterWidth="10" :minCol="3" :maxCol="4" :gutterHeight="10" ref="waterfall">
+    <Waterfall :gutterWidth="10" :minCol="3" :maxCol="4" :gutterHeight="10">
       <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="250" class="item animated fadeIn">
         <img :src="src">
       </WaterfallItem>
