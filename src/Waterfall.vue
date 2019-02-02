@@ -11,10 +11,6 @@ export default {
       type: Number,
       default: 0
     },
-    resizable: {
-      type: Boolean,
-      default: true
-    },
     align: {
       type: String,
       default: 'center'
@@ -42,13 +38,8 @@ export default {
     }
   },
   mounted () {
-    Vue.nextTick(() => {
-      this.width = this.$refs.waterfall.offsetWidth
-      this.resizeHandle()
-    })
     if (!this.percent) {
       this.$on('itemRender', val => {
-        this.width = this.$refs.waterfall.offsetWidth
         this.itemWidth = val
         this.emit()
         this.calMinWidth()
@@ -63,6 +54,8 @@ export default {
         ref: 'waterfall'
       }, this.$slots.default)
     }
+    //get width when render
+    this.width = this.$refs.waterfall.getBoundingClientRect().width
 
     if (this.percent && this.percent.length > 0) { // 百分比布局
       const colNum = this.percent.length
@@ -121,24 +114,6 @@ export default {
       this.$children.map(children => {
         return children.$emit('getGutterHeight', this.gutterHeight)
       })
-    },
-    resizeHandle () {
-      if (this.resizable) {
-        this.onResize()
-      } else {
-        this.offResize()
-      }
-    },
-    onResize () {
-      window.addEventListener('resize', () => {
-        this.width = this.$refs.waterfall.offsetWidth
-      }, false)
-    },
-    offResize () {
-      this.$refs.waterfall.style.width = `${this.width}px`
-      window.removeEventListener('resize', () => {
-        this.width = this.$refs.waterfall.offsetWidth
-      }, false)
     },
     calMinWidth () {
       if (this.minCol && this.minCol > 0) {
