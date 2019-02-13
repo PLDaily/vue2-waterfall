@@ -1,8 +1,3 @@
-<template>
-  <div class="waterfall-item" :style="{marginBottom: `${gutterHeight}px`}">
-    <slot></slot>
-  </div>
-</template>
 <script>
 export default {
   name: 'WaterfallItem',
@@ -37,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<template>
+  <div class="waterfall-item" :style="{marginBottom: `${gutterHeight}px`}">
+    <slot></slot>
+  </div>
+</template>

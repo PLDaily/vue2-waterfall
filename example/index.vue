@@ -17,8 +17,6 @@ body {
     <Waterfall
       :gutterWidth="10"
       :gutterHeight="10"
-      :minCol="3"
-      :maxCol="4"
       :percent="waterfallPercent"
       @scrollBottom="handleLoadMore">
       <WaterfallItem
@@ -54,7 +52,7 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => this.loadMore(5), 100)
+    setTimeout(() => this.loadMore(10), 100)
     this.getPrecent()
     window.addEventListener('resize', this.getPrecent, { passive: true })
   },

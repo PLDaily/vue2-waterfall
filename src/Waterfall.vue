@@ -4,43 +4,23 @@ export default {
   props: {
     gutterWidth: {
       type: Number,
-      default: 0
+      default: 10
     },
     gutterHeight: {
       type: Number,
-      default: 0
+      default: 10
     },
     resizable: {
       type: Boolean,
       default: true
     },
-    align: {
-      type: String,
-      default: 'center'
-    },
-    fixWidth: {
-      type: Number
-    },
-    minCol: {
-      type: Number,
-      default: 1
-    },
-    maxCol: {
-      type: Number
-    },
     percent: {
       type: Array
-    },
-    itemWidth: {
-      type: Number,
-      default: 200
     }
   },
   data () {
     return {
       width: 0,
-      minWidth: 0,
-      maxWidth: 0,
       renderData: [],
       scrollBottomEventEmited: false,
       preDataLength: 0
@@ -93,11 +73,7 @@ export default {
       return this.renderData.findIndex(item => item.height === minHeight)
     },
     colNum () {
-      if (this.percent) {
-        return this.percent.length
-      } else {
-        return parseInt(this.width / (this.itemWidth), 10) || 1
-      }
+      return this.percent.length
     }
   },
 
@@ -154,9 +130,10 @@ export default {
           node.componentOptions.propsData.gutterHeight = this.gutterHeight
           return node
         })
-        const itemWidth = this.percent
-          ? this.percent[index] * this.width / this.percent.reduce((a, b) => a + b)
-          : this.itemWidth
+        const sum = this.percent.reduce((a, b) => a + b)
+
+        const width = this.width - this.gutterWidth * (this.colNum - 1)
+        const itemWidth = this.percent[index] / sum * width
 
         return h(
           'div',
@@ -164,7 +141,7 @@ export default {
             class: 'waterfall-box',
             style: {
               width: `${itemWidth}px`,
-              padding: `0 ${this.gutterWidth / 2}px`,
+              marginRight: index === this.colNum - 1 ? 0 : `${this.gutterWidth}px`,
               verticalAlign: 'top',
               display: 'inline-block',
               boxSizing: 'border-box'
@@ -179,7 +156,6 @@ export default {
         ref: 'waterfall',
         style: {
           display: typeof window === 'undefined' ? 'none' : 'block',
-          textAlign: this.align,
           margin: '0 auto'
         }
       }, nodes)
@@ -191,20 +167,6 @@ export default {
 
     onResize () {
       window.addEventListener('resize', this.setWidth, false)
-    },
-
-    calMinWidth () {
-      if (this.minCol && this.minCol > 0) {
-        this.minWidth = (this.itemWidth + this.gutterWidth) * this.minCol
-        this.$el.style.minWidth = `${this.minWidth}px`
-      }
-    },
-
-    calMaxWidth () {
-      if (this.maxCol && this.maxCol > 0) {
-        this.maxWidth = (this.itemWidth + this.gutterWidth) * this.maxCol
-        this.$el.style.maxWidth = `${this.maxWidth}px`
-      }
     }
   }
 }

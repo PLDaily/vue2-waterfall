@@ -1,50 +1,24 @@
 # vue2-waterfall
 
-[![Build Status](https://travis-ci.org/PLDaily/vue2-waterfall.svg?branch=master)](https://travis-ci.org/PLDaily/vue2-waterfall)
-[![npm](https://img.shields.io/npm/v/vue2-waterfall.svg)](https://www.npmjs.com/package/vue2-waterfall)
-[![npm](https://img.shields.io/npm/dt/vue2-waterfall.svg)](https://www.npmjs.com/package/vue2-waterfall)
-[![npm](https://img.shields.io/npm/l/vue2-waterfall.svg)](https://www.npmjs.com/package/vue2-waterfall)
+[![npm](https://img.shields.io/npm/v/@rguanghui/vue2-waterfall.svg)](https://www.npmjs.com/package/@rguanghui/vue2-waterfall)
+[![npm](https://img.shields.io/npm/dt/@rguanghui/vue2-waterfall.svg)](https://www.npmjs.com/package/@rguanghui/vue2-waterfall)
+[![npm](https://img.shields.io/npm/l/@rguanghui/vue2-waterfall.svg)](https://www.npmjs.com/package/@rguanghui/vue2-waterfall)
 [![npm](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/standard/standard)
-
-[访问中文版](https://github.com/PLDaily/vue2-waterfall/blob/2.0/ZH_CN.md)
 
 ## Overview
 > An AutoHeight Waterfall Component For Vue2
 
-[demo](http://67.218.146.247:8090/)
-
-## Release 2.0
-
-- support ssr
-- no dependencies
-
 ## Install
 
-### Install vue2-waterfall
-
 ```sh
-npm install vue2-waterfall
-```
-
-### Import vue2-waterfall
-
-ES6/commonjs import style is supported.
-
-```js
-// ES6
-import {Waterfall, WaterfallItem} from 'vue2-waterfall';
-
-// commonjs
-const Waterfall = require("vue2-waterfall").Waterfall;
-const WaterfallItem = require("vue2-waterfall").WaterfallItem;
-```
-or link as a `script` in an html file and access global variable `Vue2Waterfall`.
-
-```js
-<script src="dist/vue2-waterfall.js"></script>
+npm install @rguanghui/vue2-waterfall
 ```
 
 ## Usage
+
+```js
+import { Waterfall, WaterfallItem } from 'vue2-waterfall'
+```
 
 ```html
 <Waterfall>
@@ -55,28 +29,24 @@ or link as a `script` in an html file and access global variable `Vue2Waterfall`
 </Waterfall>
 ```
 
+> See the source code to get the complete example.
+
 ## options
 
 ### Waterfall Attributes
 
-| Option          | Description                                                   | default     | type      | acceptable values        |
-| --------------- | ------------------------------------------------------------- | ----------- | --------- | ------------------------ |
-| gutterWidth     | the waterfall brick element horizontal gutter                 | 0           | Number    |           -              |
-| gutterHeight    | the waterfall brick element vertical gutter                   | 0           | Number    |           -              |
-| resizable       | triggers layout when browser window is resized                | true        | Boolean   |  'true' 'false'          |
-| align           | Alignment                                                     | 'center'    | String    |  'left' 'center' 'right' |
-| fixWidth        | fix the waterfall component width                             |      -      | Number    |           -              |
-| minCol          | min columns                                                   | 1           | Number    |           -              |
-| maxCol          | max column                                                    |      -      | Number    |           -              |
-| percent         | use Fluid layout, ignore waterfallitem width. such as [1, 1]  |      -      | Array     |           -              |
+| Option       | Description  | default     | type
+| ------------ | ---------------------------------------------- | ------ | ------- |
+| gutterWidth  | the waterfall brick element horizontal gutter  | 10     | Number  |
+| gutterHeight | the waterfall brick element vertical gutter    | 10     | Number  |
+| resizable    | triggers layout when browser window is resized | true   | Boolean |
+| percent      | use Fluid layout. such as [1, 1]               | -      | Array   |
 
 ### WaterfallItem Attributes
 
-| Option  | Description                                                 | default     | type      |
-| ------- | ----------------------------------------------------------- | ----------- | --------- |
-| width   | The width of waterfallItem                                  |     150     | Number    |
+| Option    | Description  | default     | type
+| --------- | ------------ | ----------- | --- |
+| emitEvent | emit an event when the component rendered complete by yourself | - | String |
 
-
-## LICENSE
-
-MIT@[PLDaily](https://github.com/PLDaily)
+> Note: the effect of the `emitEvent` is to let code know how height is this component.
+> in some case(such as async component or has child component to render), we don't know when to get the final height in the browser. so you may need to actively emit an event to help get the correct dom tree.

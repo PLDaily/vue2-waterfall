@@ -7,25 +7,16 @@ export default {
     }
   },
 
-  data () {
-    return {
-      show: false
-    }
-  },
-
   mounted () {
-    setTimeout(() => {
-      this.show = true
-      this.$nextTick(() => {
-        this.$parent.$emit('imageEmit')
-      })
-    }, 100)
+    this.$nextTick(() => {
+      this.$parent.$emit('imageEmit')
+    })
   }
 }
 </script>
 
 <template>
-<div v-if="show" class="image__content" :style="{ paddingTop: item.height / item.width * 100 + '%' }">
+<div class="image__content" :style="{ paddingTop: item.height / item.width * 100 + '%' }">
   <img :src="item.url" class="image">
   <div class="image__text">{{item.text}}</div>
 </div>
