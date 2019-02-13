@@ -1,6 +1,6 @@
 {
-  "name": "vue2-waterfall",
-  "version": "2.0.1",
+  "name": "@rguanghui/vue2-waterfall",
+  "version": "3.0.0",
   "description": "An AutoHeight Waterfall Component For Vue2",
   "main": "dist/vue2-waterfall.js",
   "scripts": {
@@ -10,20 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PLDaily/vue2-waterfall.git"
+    "url": "git+https://github.com/rguanghui/vue2-waterfall.git"
   },
   "keywords": [
     "vue",
     "waterfall"
   ],
-  "author": "PLDaily <pcd12321@gmail.com>",
+  "author": "rguanghui <qingting4619@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PLDaily/vue2-waterfall/issues"
+    "url": "https://github.com/rguanghui/vue2-waterfall/issues"
   },
-  "homepage": "https://github.com/PLDaily/vue2-waterfall#readme",
+  "homepage": "https://github.com/rguanghui/vue2-waterfall#readme",
   "dependencies": {
-    "vue": "^2.5.13"
+    "vue": "^2.6.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -36,7 +36,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-html": "^4.0.1",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
@@ -44,7 +44,7 @@
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
     "vue-loader": "^13.5.0",
-    "vue-template-compiler": "^2.5.9",
+    "vue-template-compiler": "^2.6.6",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   }

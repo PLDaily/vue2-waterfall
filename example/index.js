@@ -1,7 +1,5 @@
 import Vue from 'vue'
-import Example from './Example.vue'
-
-Vue.config.productionTip = false
+import Example from './index.vue'
 
 /* eslint-disable no-new */
 new Vue({
