@@ -10,7 +10,7 @@ v${pkg.version} ©${new Date().getFullYear()} ${pkg.author}
 ${pkg.homepage}
 `.trim()
 
-function resolve (dir, filename = '') {
+function resolve(dir, filename = '') {
   return path.join(__dirname, dir, filename)
 }
 
@@ -22,6 +22,9 @@ const config = {
     library: 'Vue2Waterfall',
     libraryTarget: 'umd',
     filename: 'vue2-waterfall.js'
+  },
+  externals: {
+    'vue': 'Vue'
   },
   module: {
     rules: [
