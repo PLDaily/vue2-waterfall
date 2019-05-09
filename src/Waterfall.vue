@@ -1,5 +1,4 @@
 <script>
-import Vue from 'vue'
 export default {
   name: 'Waterfall',
   props: {
@@ -42,7 +41,7 @@ export default {
     }
   },
   mounted () {
-    Vue.nextTick(() => {
+    this.$nextTick(() => {
       this.width = this.$refs.waterfall.offsetWidth
       this.resizeHandle()
     })
