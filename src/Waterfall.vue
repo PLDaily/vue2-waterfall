@@ -12,7 +12,7 @@ export default {
     },
     resizable: {
       type: Boolean,
-      default: true
+      default: false
     },
     align: {
       type: String,
