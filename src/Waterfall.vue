@@ -1,155 +1,119 @@
+<template>
+  <div class="waterfall" ref="waterfall">
+    <slot></slot>
+  </div>
+</template>
 <script>
+const isBrowser = typeof window !== 'undefined'
+const Masonry = isBrowser ? window.Masonry || require('masonry-layout') : null
+const imagesloaded = isBrowser ? require('imagesloaded') : null
 export default {
   name: 'Waterfall',
   props: {
-    gutterWidth: {
-      type: Number,
-      default: 0
-    },
-    gutterHeight: {
-      type: Number,
-      default: 0
-    },
-    resizable: {
-      type: Boolean,
-      default: false
-    },
-    align: {
-      type: String,
-      default: 'center'
-    },
-    fixWidth: {
-      type: Number
-    },
-    minCol: {
-      type: Number,
-      default: 1
-    },
-    maxCol: {
-      type: Number
-    },
-    percent: {
-      type: Array
-    }
-  },
-  data () {
-    return {
-      width: 0,
-      itemWidth: 100,
-      minWidth: 0,
-      maxWidth: 0
+    options: {
+      type: Object,
+      default: {}
     }
   },
   mounted () {
-    this.$nextTick(() => {
-      this.width = this.$refs.waterfall.offsetWidth
-      this.resizeHandle()
-    })
-    if (!this.percent) {
-      this.$on('itemRender', val => {
-        this.width = this.$refs.waterfall.offsetWidth
-        this.itemWidth = val
-        this.emit()
-        this.calMinWidth()
-        this.calMaxWidth()
-      })
-    }
+    this.initializeMasonry()
+    this.imagesLoaded()
   },
-  render: function (h) {
-    if (!this.$slots.default) {
-      return h('div', {
-        class: 'waterfall',
-        ref: 'waterfall'
-      }, this.$slots.default)
-    }
-
-    if (this.percent && this.percent.length > 0) { // 百分比布局
-      const colNum = this.percent.length
-      const sum = this.percent.reduce((a, b) => a + b)
-      return h('div', {
-        class: 'waterfall',
-        ref: 'waterfall',
-        style: {
-          display: typeof window === 'undefined' ? 'none' : 'block'
-        }
-      }, Array.apply(null, { length: colNum }).map((item, index) => {
-        return h(
-          'div',
-          {
-            class: 'waterfall-box',
-            style: {
-              width: `${this.percent[index] * this.width / sum}px`,
-              verticalAlign: 'top',
-              display: 'inline-block'
-            }
-          },
-          this.$slots.default.filter((it, idx) => idx % colNum === index)
-        )
-      }))
-    } else { // 正常布局
-      const pageWidth = this.fixWidth || this.width
-      const colNum = parseInt(pageWidth / (this.itemWidth + this.gutterWidth)) || 1
-
-      return h('div', {
-        class: 'waterfall',
-        ref: 'waterfall',
-        style: {
-          display: typeof window === 'undefined' ? 'none' : 'block',
-          textAlign: this.align,
-          margin: '0 auto'
-        }
-      }, Array.apply(null, { length: colNum }).map((item, index) => {
-        return h(
-          'div',
-          {
-            class: 'waterfall-box',
-            style: {
-              width: `${this.itemWidth}px`,
-              padding: `0 ${this.gutterWidth / 2}px`,
-              verticalAlign: 'top',
-              display: 'inline-block'
-            }
-          },
-          this.$slots.default.filter((it, idx) => idx % colNum === index)
-        )
-      }))
-    }
+  updated () {
+    this.performLayout()
+    this.imagesLoaded()
+  },
+  unmounted () {
+    this.masonry.destroy()
   },
   methods: {
-    emit () {
-      this.$children.map(children => {
-        return children.$emit('getGutterHeight', this.gutterHeight)
+    imagesLoaded: function () {
+      const node = this.$refs.waterfall
+      imagesloaded(
+        node,
+        () => {
+          this.masonry.layout()
+        }
+      )
+    },
+    performLayout: function () {
+      const diff = this.diffDomChildren()
+
+      if (diff.removed.length > 0) {
+        this.masonry.remove(diff.removed)
+        this.masonry.reloadItems()
+      }
+
+      if (diff.appended.length > 0) {
+        this.masonry.appended(diff.appended)
+        this.masonry.reloadItems()
+      }
+
+      if (diff.prepended.length > 0) {
+        this.masonry.prepended(diff.prepended)
+      }
+
+      if (diff.moved.length > 0) {
+        this.masonry.reloadItems()
+      }
+
+      this.masonry.layout()
+    },
+    diffDomChildren: function () {
+      const oldChildren = this.domChildren.filter(function (element) {
+        return !!element.parentNode
       })
-    },
-    resizeHandle () {
-      if (this.resizable) {
-        this.onResize()
-      } else {
-        this.offResize()
+
+      const newChildren = this.getNewDomChildren()
+
+      const removed = oldChildren.filter((oldChild) => {
+        return !newChildren.includes(oldChild)
+      })
+
+      const domDiff = newChildren.filter((newChild) => {
+        return !oldChildren.includes(newChild)
+      })
+
+      const prepended = domDiff.filter((newChild, index) => {
+        return newChildren[index] === newChild
+      })
+
+      const appended = domDiff.filter((el) => {
+        return !prepended.includes(el)
+      })
+
+      let moved = []
+
+      if (removed.length === 0) {
+        moved = oldChildren.filter(function (child, index) {
+          return index !== newChildren.indexOf(child)
+        })
+      }
+
+      this.domChildren = newChildren
+
+      return {
+        old: oldChildren,
+        new: newChildren,
+        removed: removed,
+        appended: appended,
+        prepended: prepended,
+        moved: moved
       }
     },
-    onResize () {
-      window.addEventListener('resize', () => {
-        this.width = this.$refs.waterfall.offsetWidth
-      }, false)
-    },
-    offResize () {
-      this.$refs.waterfall.style.width = `${this.width}px`
-      window.removeEventListener('resize', () => {
-        this.width = this.$refs.waterfall.offsetWidth
-      }, false)
-    },
-    calMinWidth () {
-      if (this.minCol && this.minCol > 0) {
-        this.minWidth = (this.itemWidth + this.gutterWidth) * this.minCol
-        this.$refs.waterfall.style.minWidth = `${this.minWidth}px`
+    initializeMasonry: function () {
+      if (!this.masonry) {
+        this.masonry = new Masonry(
+          this.$refs.waterfall,
+          this.options
+        )
+        this.domChildren = this.getNewDomChildren()
       }
     },
-    calMaxWidth () {
-      if (this.maxCol && this.maxCol > 0) {
-        this.maxWidth = (this.itemWidth + this.gutterWidth) * this.maxCol
-        this.$refs.waterfall.style.maxWidth = `${this.maxWidth}px`
-      }
+    getNewDomChildren: function () {
+      const node = this.$refs.waterfall
+      const children = this.options && this.options.itemSelector ? node.querySelectorAll(this.options.itemSelector) : node.children
+      return Array.prototype.slice.call(children)
     }
   }
 }

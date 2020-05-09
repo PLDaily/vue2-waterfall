@@ -13,11 +13,6 @@
 
 [demo](http://67.218.146.247:8090/)
 
-## Release 2.0
-
-- support ssr
-- no dependencies
-
 ## Install
 
 ### Install vue2-waterfall
@@ -57,25 +52,9 @@ or link as a `script` in an html file and access global variable `Vue2Waterfall`
 
 ## options
 
-### Waterfall Attributes
-
-| Option          | Description                                                   | default     | type      | acceptable values        |
-| --------------- | ------------------------------------------------------------- | ----------- | --------- | ------------------------ |
-| gutterWidth     | the waterfall brick element horizontal gutter                 | 0           | Number    |           -              |
-| gutterHeight    | the waterfall brick element vertical gutter                   | 0           | Number    |           -              |
-| resizable       | triggers layout when browser window is resized                | false        | Boolean   |  'true' 'false'          |
-| align           | Alignment                                                     | 'center'    | String    |  'left' 'center' 'right' |
-| fixWidth        | fix the waterfall component width                             |      -      | Number    |           -              |
-| minCol          | min columns                                                   | 1           | Number    |           -              |
-| maxCol          | max column                                                    |      -      | Number    |           -              |
-| percent         | use Fluid layout, ignore waterfallitem width. such as [1, 1]  |      -      | Array     |           -              |
-
-### WaterfallItem Attributes
-
-| Option  | Description                                                 | default     | type      |
-| ------- | ----------------------------------------------------------- | ----------- | --------- |
-| width   | The width of waterfallItem                                  |     150     | Number    |
-
+| Option          | Description                                                      | default     | type      |
+| --------------- | ---------------------------------------------------------------- | ----------- | --------- |
+| options         | [masonry](https://masonry.desandro.com/options.html) options     | {}          | Object    |
 
 ## LICENSE
 

@@ -4,51 +4,29 @@
   margin: 0;
 }
 
+.item {
+  margin-bottom: 15px;
+}
+
 .item img {
   border-radius: 5px;
-  width: 100%;
   display: block;
+  width: 100%;
 }
 
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+.loadmore {
+  text-align: center;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
 </style>
 <template>
   <div class="example">
-    <Waterfall :gutterWidth="10" :minCol="3" :maxCol="4" :gutterHeight="10">
-      <WaterfallItem v-for="(src, index) in dataArr" :key="index" :width="250" class="item animated fadeIn">
+    <Waterfall :options="options">
+      <WaterfallItem v-for="(src, index) in dataArr" :key="index" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 item">
         <img :src="src">
       </WaterfallItem>
     </Waterfall>
+    <div class="loadmore" @click="handleClick">LoadMore</div>
   </div>
 </template>
 <script>
@@ -68,14 +46,23 @@ export default {
   },
   data () {
     return {
-      dataArr: []
+      dataArr: [],
+      options: {}
     }
   },
   mounted () {
-    const imgArr = [pg0, pg1, pg2, pg3, pg4, pg5]
-    for (let i = 0; i < 50; i++) {
-      let num = Math.floor(Math.random() * 6)
-      this.dataArr.push(imgArr[num])
+    this.loadImage()
+  },
+  methods: {
+    loadImage: function () {
+      const imgArr = [pg0, pg1, pg2, pg3, pg4, pg5]
+      for (let i = 0; i < 10; i++) {
+        let num = Math.floor(Math.random() * 6)
+        this.dataArr.push(imgArr[num])
+      }
+    },
+    handleClick: function () {
+      this.loadImage()
     }
   }
 }

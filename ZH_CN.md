@@ -11,11 +11,6 @@
 
 [demo](http://67.218.146.247:8090/)
 
-## Release 2.0
-
-- 支持服务端渲染
-- 无任何依赖
-
 ## 安装
 
 ### 安装 vue2-waterfall
@@ -55,25 +50,9 @@ const WaterfallItem = require("vue2-waterfall").WaterfallItem;
 
 ## 选项
 
-### Waterfall 属性
-
-| 属性             | 描述                                           | 默认值       | 类型      | 可选项                   |
-| --------------- | ---------------------------------------------- | ----------- | --------- | ------------------------ |
-| gutterWidth     | 瀑布流子组件水平间距                             | 0           | Number    |           -              |
-| gutterHeight    | 瀑布流子组件垂直间距                             | 0           | Number    |           -              |
-| resizable       | 当浏览器窗口调整大小时是否重新布局                 | false        | Boolean   |  'true' 'false'          |
-| align           | 对齐方式                                       | 'center'    | String    |  'left' 'center' 'right' |
-| fixWidth        | 是否固定组件宽度                                 |      -      | Number    |           -              |
-| minCol          | 最小显示列数                                     | 1           | Number    |           -              |
-| maxCol          | 最大显示列数                                     |      -      | Number    |           -              |
-| percent         | 使用流体百分比布局，忽略子组件的宽度，例: [1,1]     |      -      | Array     |           -              |
-
-### WaterfallItem 属性
-
-| 属性    | 描述                                                      | 默认值       | 类型      |
-| ------- | -------------------------------------------------------- | ------------ | --------- |
-| width   | 瀑布流子组件的宽度                                         |     150     | Number    |
-
+| 属性             | 描述                                                            | 默认值       | 类型      |
+| --------------- | ---------------------------------------------------------------- | ---------=-- | --------- |
+| options         | [masonry](https://masonry.desandro.com/options.html) options     | {}           | Object    |
 
 ## LICENSE
 
