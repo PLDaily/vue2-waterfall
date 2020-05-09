@@ -51,7 +51,7 @@ const WaterfallItem = require("vue2-waterfall").WaterfallItem;
 ## 选项
 
 | 属性             | 描述                                                            | 默认值       | 类型      |
-| --------------- | ---------------------------------------------------------------- | ---------=-- | --------- |
+| --------------- | ---------------------------------------------------------------- | ------------ | --------- |
 | options         | [masonry](https://masonry.desandro.com/options.html) options     | {}           | Object    |
 
 ## LICENSE

@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/l/vue2-waterfall.svg)](https://www.npmjs.com/package/vue2-waterfall)
 [![npm](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/standard/standard)
 
-[访问中文版](https://github.com/PLDaily/vue2-waterfall/blob/2.0/ZH_CN.md)
+[访问中文版](https://github.com/PLDaily/vue2-waterfall/blob/3.0/ZH_CN.md)
 
 ## Overview
 > An AutoHeight Waterfall Component For Vue2
